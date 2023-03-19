@@ -1,0 +1,4 @@
+throttling:
+  limit: 2
+  period: 1
+  timeUnit: MINUTES
