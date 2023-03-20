@@ -1,4 +1,4 @@
-package ru.artbmstu.examtask.config.throttle;
+package ru.artbmstu.examtask.config.throttle.aop;
 
 import java.util.concurrent.TimeUnit;
 

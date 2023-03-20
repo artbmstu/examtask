@@ -1,4 +1,4 @@
 throttling:
-  limit: 3
+  limit: 7
   period: 1
   timeUnit: MINUTES
