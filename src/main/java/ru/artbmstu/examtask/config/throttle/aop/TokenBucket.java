@@ -6,7 +6,8 @@ public class TokenBucket {
   private final int capacity;
   private final long periodNanos;
   private long lastRefillTime;
-  private double tokens;
+  private long nextRefillTime;
+  private long tokens;
 
   public TokenBucket(int capacity, long period, TimeUnit timeUnit) {
     this.capacity = capacity;
@@ -27,9 +28,13 @@ public class TokenBucket {
 
   private void refill() {
     long now = System.nanoTime();
+    if (now < nextRefillTime) {
+      return;
+    }
     long timePassed = now - lastRefillTime;
-    double newTokens = timePassed * capacity / (double) periodNanos;
-    tokens = Math.min(tokens + newTokens, capacity);
+    long numPeriods = timePassed / periodNanos;
     lastRefillTime = now;
+    nextRefillTime = lastRefillTime + periodNanos;
+    tokens = Math.min(tokens + numPeriods * capacity, capacity);
   }
 }
